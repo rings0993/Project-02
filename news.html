@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Penyler</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="./layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script
+    src="./moment.min.js"></script>
+<script
+    src="./jquery-3.2.1.js"></script>
+  <script src="./semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./semantic.min.css">
+  <style type="text/css">
+    .hide{
+      display: none;
+    }
+  </style>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var myParam = location.search.split('date=')[1];
+      console.log(myParam);
+      $( ".main" ).on( "click", ".newsss", function() {
+        console.log($(this).children(".full").toggleClass("hide"));
+      });
+      $.ajax({url: "http://140.117.68.65:5000/api/date/"+myParam, success: function(result){
+          var i = 0
+          $(".main").append( `
+            <h1 class="ui header">`+result[i]["date"]+`</h1><br>
+          `);
+          $.each(result,function(){
+            $(".main").append( `
+              <span class="newsss">
+              <a href="`+result[i]['url']+`">
+                <h2 class="ui header">`+result[i]["title"]+`</h2>
+              </a>
+              `+ moment.unix(result[i]["timestamp"]).format("HH:mm:ss")+`<br><br>
+                <a class="ui red tag label">摘要</a>
+                <span class="keyword">
+                `+result[i]["keyword"]+`
+                </span>
+                <br><br>
+                <span class="full hide">
+                <a class="ui teal tag label">全文</a>
+                `+result[i]["content"]+`
+                </span>
+                <br><br>
+              </span>
+            `);
+
+            i++;
+          })
+          
+        console.log(result)
+      }});
+  });
+  </script>
+
+
+</head>
+<body id="top">
+<div class="bgded overlay" style="background-image:url('./financial image.png');"> 
+  <div class="wrapper">
+    <header id="header" class="hoc clear">
+      <div id="logo"> 
+        <h1><a href="index.html">鉅亨網<br><br>摘要平台</a></h1>
+      </div>     
+    </header>
+  </div>
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    <!-- main body -->
+    <div class="ui main text container">
+      
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+<div class="bgded overlay" style="background-image:url('./financial image.png');">
+  <div id="copyright" class="hoc clear center"> 
+    <p>Copyright &copy; 2017 - All Rights Reserved</p>
+  </div>
+</div>
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="layout/scripts/jquery.min.js"></script>
+<script src="layout/scripts/jquery.backtotop.js"></script>
+<script src="layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>

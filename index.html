@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<title>CNyes</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="./layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script
+    src="./jquery-1.12.4.js"></script>
+  <script src="./semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./semantic.min.css">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $.ajax({url: "http://140.117.68.65:5000/api/count", success: function(result){
+          var i = 0
+          $.each(result,function(){
+            $(".cards").append( `
+              <a class="card" href="./news.html?date=`+result[i]["date"]+`">
+                <div class="image">
+                  <img src="`+result[i]["pic"]+`">
+                </div>
+                <div class="content">
+                  <div class="header">`+result[i]["date"]+`</div>
+                  <div class="meta">
+                    <span class="date">`+result[i]["count"]+`篇</span>
+                  </div>
+                </div>
+              </a>
+            `);
+
+            i++;
+          })
+          
+        console.log(result)
+      }});
+  });
+  </script>
+
+
+</head>
+<body id="top">
+<div class="bgded overlay" style="background-image:url('./financial image.png');"> 
+  <div class="wrapper">
+    <header id="header" class="hoc clear">
+      <div id="logo"> 
+        <h1><a href="index.html">鉅亨網<br><br>摘要平台</a></h1>
+      </div>     
+    </header>
+  </div>
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    <!-- main body -->
+    <div class="ui link cards">
+      
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+<div class="bgded overlay" style="background-image:url('./financial image.png');">
+  <div id="copyright" class="hoc clear center"> 
+    <p>Copyright &copy; 2017 - All Rights Reserved</p>
+  </div>
+</div>
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="layout/scripts/jquery.min.js"></script>
+<script src="layout/scripts/jquery.backtotop.js"></script>
+<script src="layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>
